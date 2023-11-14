@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Рецепты</title>
+</head>
+<body>
+    <h1>Рецепты</h1>
+        <ul>
+            {% for dish in dishes %}
+                <li><a href="{{ dish }}">{{ dish }}</a></li>
+            {% endfor %}
+        </ul>
+</body>
+</html>

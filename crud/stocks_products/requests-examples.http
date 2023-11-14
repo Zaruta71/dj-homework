@@ -1,0 +1,164 @@
+# примеры API-запросов
+
+@baseUrl = http://localhost:8000/api/v1
+
+# создание продукта
+POST {{baseUrl}}/products/
+Content-Type: application/json
+
+{
+  "title": "Огурцы",
+  "description": "Худшие огурцы на диком западе"
+}
+
+###
+
+# получение продуктов
+GET {{baseUrl}}/products/
+Content-Type: application/json
+
+###
+
+# обновление продукта
+PATCH {{baseUrl}}/products/1/
+Content-Type: application/json
+
+{
+  "description": "Самые сочные и ароматные помидорки"
+}
+
+###
+
+# удаление продукта
+DELETE {{baseUrl}}/products/1/
+Content-Type: application/json
+
+###
+
+# поиск продуктов по названию и описанию
+GET {{baseUrl}}/products/?search=помидор
+Content-Type: application/json
+
+###
+
+# создание склада
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "мой адрес не дом и не улица, мой адрес сегодня такой: www.ленинград-спб.ru3",
+  "positions": [
+    {
+      "product": 2,
+      "quantity": 250,
+      "price": 120.50
+    },
+    {
+      "product": 3,
+      "quantity": 100,
+      "price": 180
+    }
+  ]
+}
+
+###
+
+# создание склада 2
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "Склад 2",
+  "positions": [
+    {
+      "product": 2,
+      "quantity": 500,
+      "price": 105.25
+    }
+  ]
+}
+
+###
+
+# создание склада 3
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "Склад 3",
+  "positions": [
+    {
+      "product": 3,
+      "quantity": 45,
+      "price": 90.35
+    },
+    {
+      "product": 2,
+      "quantity": 32,
+      "price": 125.5
+    }
+  ]
+}
+
+###
+
+# создание склада 4
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "Склад 4",
+  "positions": [
+    {
+      "product": 3,
+      "quantity": 10,
+      "price": 86.25
+    }
+  ]
+}
+
+###
+
+# обновляем записи на складе
+PATCH {{baseUrl}}/stocks/1/
+Content-Type: application/json
+
+{
+  "positions": [
+    {
+      "product": 2,
+      "quantity": 100,
+      "price": 130.80
+    },
+    {
+      "product": 4,
+      "quantity": 45,
+      "price": 55.10
+    }
+  ]
+}
+
+###
+
+# поиск складов, где есть определенный продукт
+GET {{baseUrl}}/stocks/?products=2
+Content-Type: application/json
+
+###
+
+# поиск складов
+
+GET {{baseUrl}}/stocks/
+Content-Type: application/json
+
+###
+
+# удаление склада
+DELETE {{baseUrl}}/stocks/2/
+Content-Type: application/json
+
+###
+
+# поиск складов, где есть определенный продукт
+GET {{baseUrl}}/stocks/?search=помид
+Content-Type: application/json
