@@ -1,0 +1,93 @@
+# примеры API-запросов
+
+@baseUrl = https://localhost:8000/api
+###
+
+# получение объявлений
+GET {{baseUrl}}/advertisements/
+Content-Type: application/json
+###
+GET {{baseUrl}}/advertisements/32/
+Content-Type: application/json
+
+###
+GET {{baseUrl}}/advertisements/32/
+Content-Type: application/json
+Authorization: Token d44b86f7e7f3560f797a45012854e104fa3f1be3
+
+###
+
+# создание объявления
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token d44b86f7e7f3560f797a45012854e104fa3f1be3
+
+{
+  "title": "Стул",
+  "description": "В черновиках"
+}
+
+###
+
+# попытка поменять объявление
+PATCH {{baseUrl}}/advertisements/4/
+Content-Type: application/json
+Authorization: Token d44b86f7e7f3560f797a45012854e104fa3f1be3
+
+{
+  "status": "OPEN"
+}
+
+###
+###________________________________________________
+### TODO фильтрация по создателю TODO
+GET {{baseUrl}}/advertisements/?creator=1
+Content-Type: application/json
+Authorization: Token d44b86f7e7f3560f797a45012854e104fa3f1be3
+###
+
+# TODO фильтрация по дате TODO
+GET {{baseUrl}}/advertisements/?created_at_after=2023-09-03
+Content-Type: application/json
+Authorization: Token d44b86f7e7f3560f797a45012854e104fa3f1be3
+### TODO
+GET {{baseUrl}}/advertisements/?status=DRAFT
+Content-Type: application/json
+Authorization: Token c44e70b309e278996ba01ef49540f3add579d9e4
+###
+###_________________________________________________
+GET {{baseUrl}}/advertisements/1/
+Authorization: Token 7af3471d7e112e8da21ecccd27bfeec2017aa416
+###
+POST {{baseUrl}}/advertisements/20/set_favorite/
+Authorization: Token 7af3471d7e112e8da21ecccd27bfeec2017aa416
+
+###
+POST {{baseUrl}}/advertisements/1/set_favorite/
+Content-Type: application/json
+###
+POST {{baseUrl}}/advertisements/12/set_favorite/
+Authorization: Token c44e70b309e278996ba01ef49540f3add579d9e4
+###
+
+POST {{baseUrl}}/advertisements/2/set_favorite/
+Authorization: Token c44e70b309e278996ba01ef49540f3add579d9e4
+###
+
+GET {{baseUrl}}/favorites/
+Content-Type: application/json
+###
+
+GET {{baseUrl}}/favorites/
+Content-Type: application/json
+Authorization: Token d44b86f7e7f3560f797a45012854e104fa3f1be3
+###
+
+GET {{baseUrl}}/favorites/?user=2
+Content-Type: application/json
+Authorization: Token c44e70b309e278996ba01ef49540f3add579d9e4
+###
+
+GET {{baseUrl}}/favorites/get_favorites/
+Content-Type: application/json
+Authorization: Token c44e70b309e278996ba01ef49540f3add579d9e4
