@@ -9,25 +9,32 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ("id", "name", "students")
 
-    def validate(self, attrs):
-        max_students = settings.MAX_STUDENTS_PER_COURSE
-        try:
-            if (
-                self.context['request'].method in ['POST', 'PATCH', 'PUT'] and len(attrs['students']) > max_students or
-                self.context['request'].method in ['PATCH', 'PUT'] and
-                len(set(attrs['students'] + list(Student.objects.filter(course__id=self.instance.pk)))) > max_students
-            ):
-                raise serializers.ValidationError(detail=f"Students on course must be no more than 20", )
-        except KeyError:
-            pass
-        return attrs
+    # def validate(self, attrs):
+    #     max_students = settings.MAX_STUDENTS_PER_COURSE
+    #     try:
+    #         if (
+    #             self.context['request'].method in ['POST', 'PATCH', 'PUT'] and len(attrs['students']) > max_students or
+    #             self.context['request'].method in ['PATCH', 'PUT'] and
+    #             len(set(attrs['students'] + list(Student.objects.filter(course__id=self.instance.pk)))) > max_students
+    #         ):
+    #             raise serializers.ValidationError(detail=f"Students on course must be no more than 20", )
+    #     except KeyError:
+    #         pass
+    #     return attrs
+    #
+    # def update(self, instance, validated_data):
+    #     course = super().update(instance, validated_data)
+    #     try:
+    #         students = validated_data.pop('students')
+    #         for student in students:
+    #             course.students.add(student)
+    #     except KeyError:
+    #         pass
+    #     return course
 
-    def update(self, instance, validated_data):
-        course = super().update(instance, validated_data)
-        try:
-            students = validated_data.pop('students')
-            for student in students:
-                course.students.add(student)
-        except KeyError:
-            pass
-        return course
+    def validate_students(self, value):
+        if len(value) > settings.MAX_STUDENTS_PER_COURSE:
+            raise exceptions.ValidationError(
+                f'Превышено максимальное число студентов на курсе: {settings.MAX_STUDENTS_PER_COURSE}'
+            )
+        return value
